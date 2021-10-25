@@ -12,9 +12,10 @@ This project is structured in the following way:
 View ----communicates---> BLoC ----communicates---> Repository (Data and data management)
 
 BLoC has the following modules: 
-State
-Event
-Bloc functions
+
+1) State
+2) Event
+3) Bloc functions
 
 The view uses State to update and maintain it's classes and it uses event to call action for a certain function. 
 
