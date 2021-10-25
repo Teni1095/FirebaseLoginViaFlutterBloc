@@ -19,40 +19,43 @@ Bloc functions
 The view uses State to update and maintain it's classes and it uses event to call action for a certain function. 
 
 Examples:-
-State Management:- 
-  Widget createWidget(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>( 
-      builder: (context, state) { // Returns a widget based on the state variable
-        if (state is Authenticated) {
-          return const OtherView);
-        }
-        return const Scaffold(body: LoginView());
-      },
-    );
-  }
+  State Management:- 
+
+    Widget createWidget(BuildContext context) {
+      return BlocBuilder<AuthenticationBloc, AuthenticationState>( 
+        builder: (context, state) { // Returns a widget based on the state variable
+          if (state is Authenticated) {
+            return const OtherView);
+          }
+          return const Scaffold(body: LoginView());
+        },
+      );
+    }
   
   Event handling:- 
-  ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<AuthenticationBloc>(context)    // Call to perform an event to authenticate using Google sign in
-                      .add(AuthenticateUsingGmail());          
-                },
-                child: const Text("Sign up using Google"),
-              )
+  
+    ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<AuthenticationBloc>(context)    // Call to perform an event to authenticate using Google sign in
+                        .add(AuthenticateUsingGmail());          
+                  },
+                  child: const Text("Sign up using Google"),
+                )
               
 The bloc will in turn update the state based on the event:
 
 The AuthenticateBloc will handle it like this:- 
- @override
-  Stream<AuthenticationState> mapEventToState(
-    AuthenticationEvent event,
-  ) async* {
-    if (event is AuthenticateUsingGmail) {
-      yield Authenticating(); \\State to convey that an action is currently being performed
-      try {
-        var user = await userRepository.signInWithGoogle();
-        yield Authenticated(user); State to convey that an action is completed successfully
-      } catch (e) {
-        yield Unauthenticated(e);  State to convey that an action has failed
+
+     @override
+      Stream<AuthenticationState> mapEventToState(
+        AuthenticationEvent event,
+      ) async* {
+        if (event is AuthenticateUsingGmail) {
+          yield Authenticating(); \\State to convey that an action is currently being performed
+          try {
+            var user = await userRepository.signInWithGoogle();
+            yield Authenticated(user); State to convey that an action is completed successfully
+          } catch (e) {
+            yield Unauthenticated(e);  State to convey that an action has failed
+          }
       }
-  }
