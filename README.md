@@ -1,9 +1,12 @@
 # FirebaseLoginViaFlutterBloc
 Login through Firebase Authentication system using Flutter and BLoC
+
+
 This is a project that manages states using BLoC state management framework. This link contains more infoprmation about BLoC.
 https://bloclibrary.dev/#/
 
 Why BLoC?
+
 For most data-oriented environment, the MVC framework is used to handle data management. Flutter is a state-oriented framework. It refreshes and updates based on states. 
 For that purpose, the BLoC framework is a better fit. 
 
